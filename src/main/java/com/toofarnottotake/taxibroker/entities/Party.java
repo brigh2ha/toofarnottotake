@@ -16,8 +16,11 @@ public class Party {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "category_id")
-    private Long categoryId;
+    @Column(name = "departure_id")
+    private Long departureId;
+
+    @Column(name = "destination_id")
+    private Long destinationId;
 
     @Column(name = "price")
     private Double price;

@@ -32,7 +32,8 @@
 
     <div class="booking-form">
         <form th:action="@{/party-requests}" th:object="${party}" method="post" id="bookingForm">
-            <input type="hidden" th:field="*{categoryId}" id="categoryId" name="categoryId">
+            <input type="hidden" th:field="*{departureId}" id="departureId" name="departureId">
+            <input type="hidden" th:field="*{destinationId}" id="destinationId" name="destinationId">
             <input type="hidden" th:field="*{userId}" id="userId" name="userId" value="${party.userId}">
             <!-- Time Selection -->
             <div class="mb-4">
@@ -94,44 +95,33 @@
 </script>
 
 <script>
-
-
     function updateCategoryId() {
         const departure = document.getElementById('departure').value;
         const destination = document.getElementById('destination').value;
 
         if (departure && destination) {
             // Create category ID based on departure and destination
-            let categoryId = generateCategoryId(departure, destination);
-            document.getElementById('categoryId').value = categoryId;
+            let departureId = generatePlaceId(departure);
+            let destinationId = generatePlaceId()Id(destination);
+            document.getElementById('departureId').value = departureId;
+            document.getElementById('destinationId').value = destinationId;
         }
     }
 
-    function generateCategoryId(departure, destination) {
+    function generatePlaceId(place) {
         // Define pricing categories based on locations
         const categories = {
-            'snu_station_admin': 1,
-            'city_center_airport': 1,
-            'airport_suburb_north': 2,
-            'suburb_north_airport': 2,
-            'airport_suburb_south': 2,
-            'suburb_south_airport': 2,
-            'airport_suburb_east': 2,
-            'suburb_east_airport': 2,
-            'airport_suburb_west': 2,
-            'suburb_west_airport': 2,
-            'city_center_suburb_north': 3,
-            'suburb_north_city_center': 3,
-            'city_center_suburb_south': 3,
-            'suburb_south_city_center': 3,
-            'city_center_suburb_east': 3,
-            'suburb_east_city_center': 3,
-            'city_center_suburb_west': 3,
-            'suburb_west_city_center': 3,
+            'snu_station': 1,
+            'admin': 2,
+            'nakdae': 3,
+            'dormitory': 4,
+            'mulmidong': 5,
+            'daehakgarage': 6
+
             // Add more combinations as needed
         };
 
-        const key = `${departure}_${destination}`;
+        const key = `${place}`;
         return categories[key] || 0; // Return 0 for unknown combinations
     }
 

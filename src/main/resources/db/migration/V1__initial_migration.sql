@@ -10,7 +10,8 @@ CREATE TABLE users
 CREATE TABLE parties
 (
     id              BIGINT AUTO_INCREMENT NOT NULL,
-    category_id     TINYINT NOT NULL,
+    departure_id    TINYINT NOT NULL,
+    destination_id      TINYINT NOT NULL,
     price           DECIMAL(10, 2) NOT NULL,
     time            VARCHAR(255) NOT NULL,
     captain_id      BIGINT NOT NULL,
@@ -23,15 +24,19 @@ CREATE TABLE parties
 CREATE TABLE categories
 (
     id   TINYINT AUTO_INCREMENT NOT NULL,
-    departure VARCHAR(255) NOT NULL,
-    destination VARCHAR(255) NOT NULL,
+    place VARCHAR(255) NOT NULL,
     CONSTRAINT `PRIMARY` PRIMARY KEY (id)
 );
 
 ALTER TABLE parties
-    ADD CONSTRAINT fk_parties_on_category FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE NO ACTION;
+    ADD CONSTRAINT fk_parties_on_category FOREIGN KEY (departure_id) REFERENCES categories (id) ON DELETE NO ACTION;
 
-CREATE INDEX fk_parties_on_category ON parties (category_id);
+CREATE INDEX fk_parties_on_category ON parties (departure_id);
+
+ALTER TABLE parties
+    ADD CONSTRAINT fk_parties_on_category FOREIGN KEY (destination_id) REFERENCES categories (id) ON DELETE NO ACTION;
+
+CREATE INDEX fk_parties_on_category ON parties (destination_id);
 
 ALTER TABLE parties
     ADD CONSTRAINT fk_parties_on_user_captain FOREIGN KEY (captain_id) REFERENCES users (id) ON DELETE NO ACTION;

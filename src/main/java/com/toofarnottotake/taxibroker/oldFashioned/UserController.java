@@ -1,22 +1,18 @@
-package com.toofarnottotake.taxibroker.controllers;
+package com.toofarnottotake.taxibroker.oldFashioned;
 
 import com.toofarnottotake.taxibroker.dtos.ChangePasswordRequest;
 import com.toofarnottotake.taxibroker.dtos.RegisterUserRequest;
 import com.toofarnottotake.taxibroker.dtos.UpdateUserRequest;
 import com.toofarnottotake.taxibroker.dtos.UserDto;
-import com.toofarnottotake.taxibroker.entities.User;
 import com.toofarnottotake.taxibroker.mappers.UserMapper;
 import com.toofarnottotake.taxibroker.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController

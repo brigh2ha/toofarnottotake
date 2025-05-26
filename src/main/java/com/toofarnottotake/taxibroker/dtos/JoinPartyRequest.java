@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class JoinPartyRequest {
     private Long userId;
-    private Long categoryId;
+    private Long departureId;
+    private Long destinationId;
     private String time;
 }

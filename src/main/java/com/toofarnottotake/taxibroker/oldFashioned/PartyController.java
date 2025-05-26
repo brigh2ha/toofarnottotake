@@ -1,8 +1,7 @@
-package com.toofarnottotake.taxibroker.controllers;
+package com.toofarnottotake.taxibroker.oldFashioned;
 
 import com.toofarnottotake.taxibroker.dtos.JoinPartyRequest;
 import com.toofarnottotake.taxibroker.dtos.PartyDto;
-import com.toofarnottotake.taxibroker.dtos.UserDto;
 import com.toofarnottotake.taxibroker.entities.Party;
 import com.toofarnottotake.taxibroker.mappers.PartyMapper;
 import com.toofarnottotake.taxibroker.repositories.PartyRepository;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -23,6 +21,7 @@ public class PartyController {
 
     @GetMapping
     public Iterable<PartyDto> getAllUsers(){
+
         return  partyRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(partyMapper::toDto)
@@ -35,7 +34,7 @@ public class PartyController {
             @RequestBody JoinPartyRequest request) {
         List<Party> parties = partyRepository.findAll(Sort.by("id"));
         for (Party party : parties) {
-            if (party.getCategoryId().equals(request.getCategoryId())) {
+            if (party.getDepartureId().equals(request.getDepartureId()) && party.getDestinationId().equals(request.getDestinationId())) {
                 if(party.getLieutenantId() == null){
                     party.setLieutenantId(userId);
                     partyRepository.save(party);
@@ -52,7 +51,8 @@ public class PartyController {
             }
         }
         Party newParty = new Party();
-        newParty.setCategoryId(request.getCategoryId());
+        newParty.setDepartureId(request.getDepartureId());
+        newParty.setDestinationId(request.getDestinationId());
         newParty.setTime(request.getTime());
         newParty.setCaptainId(userId);
         newParty.setPrice(6000.00);

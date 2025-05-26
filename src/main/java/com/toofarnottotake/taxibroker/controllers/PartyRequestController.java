@@ -30,7 +30,7 @@ public class PartyRequestController {
         Long userId = request.getUserId();
         List<Party> parties = partyRepository.findAll(Sort.by("id"));
         for (Party party : parties) {
-            if (party.getCategoryId().equals(request.getCategoryId())) {
+            if (party.getDepartureId().equals(request.getDepartureId()) && party.getDestinationId().equals(request.getDestinationId())) {
                 if(party.getLieutenantId() == null){
                     party.setLieutenantId(userId);
                     partyRepository.save(party);
@@ -46,7 +46,8 @@ public class PartyRequestController {
             }
         }
         Party newParty = new Party();
-        newParty.setCategoryId(request.getCategoryId());
+        newParty.setDepartureId(request.getDepartureId());
+        newParty.setDestinationId(request.getDestinationId());
         newParty.setTime(request.getTime());
         newParty.setCaptainId(userId);
         newParty.setPrice(6000.00);
